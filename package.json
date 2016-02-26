@@ -1,0 +1,56 @@
+{
+  "name": "professionals",
+  "version": "0.0.1",
+  "description": "career-advancement",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test --compilers js:babel-register",
+    "build": "mkdir -p build; browserify --extension=.jsx --transform babelify src/app.jsx -o build/app.js",
+    "watch": "watchify --extension=.jsx --transform babelify src/app.jsx -o build/app.js"
+  },
+  "public": false,
+  "author": "@brandonhorst",
+  "license": "MIT",
+  "dependencies": {
+    "deku": "^2.0.0-rc16",
+    "dot-prop-immutable": "^1.1.2",
+    "inline-style": "^2.0.0",
+    "lodash": "^4.5.1",
+    "redux": "^3.3.1"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-plugin-transform-react-jsx": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-register": "^6.5.2",
+    "babelify": "^7.2.0",
+    "browserify": "^13.0.0",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "watchify": "^3.7.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      [
+        "transform-react-jsx",
+        {
+          "pragma": "element"
+        }
+      ]
+    ]
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandonhorst/professionals.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brandonhorst/professionals/issues"
+  },
+  "homepage": "https://github.com/brandonhorst/professionals#readme"
+}
