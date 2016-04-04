@@ -2,16 +2,17 @@ import dot from  'dot-prop-immutable'
 
 import statusTypes from './status-types'
 
+import {currentChar, damageCharPercent, degradeStatus} from '../helpers'
+
 export default {
-  [statusTypes.INFATUATED]: {
+  [statusTypes.INFATUATE]: {
     onTurnBegin({state}) {
-      console.log(state)
-      const status = state.chars[state.turn.char].statuses[statusTypes.INFATUATED]
-      if (status.remainingTurns <= 1) {
-        return () => dot.delete(state, `chars.${state.turn.char}.statuses.${statusTypes.INFATUATED}`)
-      } else {
-        return () => dot.set(state, `chars.${state.turn.char}.statuses.${statusTypes.INFATUATED}.remainingTurns`, t => t - 1)
-      }
+      return degradeStatus(state, currentChar(state), statusTypes.INFATUATE)
+    }
+  },
+  [statusTypes.POISON]: {
+    onTurnBegin({state}) {
+      return damageCharPercent(state, currentChar(state), 0.125)
     }
   }
 }

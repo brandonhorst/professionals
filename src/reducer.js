@@ -3,74 +3,27 @@ import dot from 'dot-prop-immutable'
 import actions from './actions'
 import {mergeObj} from './utils'
 import {applyEffects, handleTurnStart, areaPowerModifierOn} from './logic'
+import {highestChargeChar, chargeChar, charData} from './helpers'
 
+import initialState from './initial'
 import activityData from './data/activity-data'
-import jobTypes from './data/job-types'
-import jobs from './data/jobs'
+import jobData from './data/job-data'
 import turnStates from './data/turn-states'
 import turnPhases from './data/turn-phases'
 
-const initialState = {
-  grid: [10, 10],
-  teams: [
-    {name: 'Team Awesome'},
-    {name: 'Team Brandon'}
-  ],
-  turn: {
-    team: 0,
-    char: 0,
-    state: turnStates.MENU,
-    phases: []
-  },
-  chars: [{
-    job: jobTypes.BRAWLER,
-    team: 0,
-    statuses: {},
-    coords: [3, 3],
-    health: 140
-  }, {
-    job: jobTypes.WIZARD,
-    team: 1,
-    statuses: {},
-    coords: [6, 6],
-    health: 80
-  }, {
-    job: jobTypes.ARCHER,
-    team: 0,
-    statuses: {},
-    coords: [3, 4],
-    health: 100
-  }, {
-    job: jobTypes.FIREMAN,
-    team: 1,
-    statuses: {},
-    coords: [6, 5],
-    health: 100
-  }, {
-    job: jobTypes.SOLDIER,
-    team: 0,
-    statuses: {},
-    coords: [3, 5],
-    health: 100
-  }, {
-    job: jobTypes.BRAWLER,
-    team: 1,
-    statuses: {},
-    coords: [6, 4],
-    health: 140
-  }, {
-    job: jobTypes.MODEL,
-    team: 0,
-    statuses: {},
-    coords: [3, 6],
-    health: 70
-  }]
-}
-
 function startTurn(state) {
+  const chars = _.forEach(state.chars, (char, index) => {
+    state = chargeChar(state, index)()
+  })
+
+  const char = highestChargeChar(state)
+  if (charData(state, char).charge < 1000) {
+    // recurse
+    return startTurn(state)
+  }
+
   const merged = mergeObj(state, {
     turn: {
-      team: ((state.turn.team + 1) % state.teams.length),
       char: ((state.turn.char + 1) % state.chars.length),
       state: turnStates.MENU,
       phases: []
@@ -119,7 +72,7 @@ export default function reduce (state = initialState, action) {
 
     case actions.CONFIRM_ACTIVITY:
       let newState = state
-      const activity = activityData[jobs[state.chars[state.turn.char].job].activities[state.turn.activity]]
+      const activity = activityData[jobData[state.chars[state.turn.char].job].activities[state.turn.activity]]
       const charModifications = {}
 
       for (let x = 0; x < state.grid[0]; x++) {

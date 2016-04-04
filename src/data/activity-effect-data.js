@@ -1,7 +1,7 @@
 import dot from 'dot-prop-immutable'
 import effectTypes from './activity-effect-types'
 import statusTypes from './status-types'
-import jobs from './jobs'
+import jobData from './job-data'
 
 export default {
   [effectTypes.DAMAGE]: {
@@ -15,13 +15,13 @@ export default {
     hitChar({state, effectPowerModifier, charId, effect}) {
       const char = state.chars[charId]
       return () => dot.set(state, `chars.${charId}.health`, health => {
-        return Math.min(health + (effect.power * effectPowerModifier), jobs[char.job].health)
+        return Math.min(health + (effect.power * effectPowerModifier), jobData[char.job].health)
       })
     }
   },
   [effectTypes.INFATUATE]: {
     hitChar({state, effectPowerModifier, charId}) {
-      return () => dot.set(state, `chars.${charId}.statuses.${statusTypes.INFATUATED}`, {
+      return () => dot.set(state, `chars.${charId}.statuses.${statusTypes.INFATUATE}`, {
         remainingTurns: (effectPowerModifier * 2) + 1
       })
     }

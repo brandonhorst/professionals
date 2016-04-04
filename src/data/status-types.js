@@ -1,5 +1,6 @@
 import {objectConstant} from '../utils'
 
 export default objectConstant([
-  'INFATUATED'
+  'INFATUATE',
+  'POISON'
 ])

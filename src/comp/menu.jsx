@@ -4,7 +4,7 @@ import {canMove} from '../logic'
 import actions from '../actions'
 import turnStates from '../data/turn-states'
 import activities from '../data/activity-data'
-import jobs from '../data/jobs'
+import jobData from '../data/job-data'
 
 import style from '../style'
 
@@ -36,7 +36,7 @@ const cancel = (dispatch) => () => {
 }
 
 function showMove(context) {
-  const movement = jobs[context.chars[context.turn.char].job].movement
+  const movement = jobData[context.chars[context.turn.char].job].movement
   return context.turn.state === turnStates.MENU && canMove({state: context, movement})
 }
 
@@ -51,7 +51,7 @@ function render ({props, dispatch, context}) {
   }
 
   if (context.turn.state === turnStates.SELECT_ACTIVITY) {
-    const activityItems = _.map(jobs[context.chars[context.turn.char].job].activities, (activity, index) => {
+    const activityItems = _.map(jobData[context.chars[context.turn.char].job].activities, (activity, index) => {
       return (
         <li class='menu-item' style={style.menuItem} onClick={selectActivity(dispatch, index)}>
           {activities[activity].name}

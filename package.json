@@ -16,6 +16,7 @@
     "dot-prop-immutable": "^1.1.2",
     "inline-style": "^2.0.0",
     "lodash": "^4.5.1",
+    "random-seed": "^0.3.0",
     "redux": "^3.3.1"
   },
   "devDependencies": {

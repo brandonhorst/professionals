@@ -6,18 +6,21 @@ export default {
   [jobTypes.BRAWLER]: {
     name: 'Brawler',
     health: 140,
+    speed: 100,
     movement: {type: movementTypes.NORMAL, range: 4},
     activities: [activityTypes.PUNCH]
   },
   [jobTypes.ARCHER]: {
     name: 'Archer',
     health: 100,
+    speed: 110,
     movement: {type: movementTypes.NORMAL, range: 4},
     activities: [activityTypes.SHOOT_ARROW]
   },
   [jobTypes.SOLDIER]: {
     name: 'Soldier',
     health: 100,
+    speed: 100,
     movement: {type: movementTypes.NORMAL, range: 4},
     activities: [
       activityTypes.SHOOT_GUN,
@@ -27,12 +30,14 @@ export default {
   [jobTypes.WIZARD]: {
     name: 'Wizard',
     health: 80,
+    speed: 90,
     movement: {type: movementTypes.NORMAL, range: 3},
     activities: [activityTypes.LIGHTNING]
   },
   [jobTypes.CLERIC]: {
     name: 'Cleric',
     health: 80,
+    speed: 90,
     movement: {type: movementTypes.NORMAL, range: 3},
     activities: [activityTypes.HEAL]
   },
@@ -40,12 +45,14 @@ export default {
     name: 'Fireman',
     description: 'It was a pleasure to burn...',
     health: 100,
+    speed: 100,
     movement: {type: movementTypes.NORMAL, range: 4},
     activities: [activityTypes.FLAMETHROWER]
   },
   [jobTypes.MODEL]: {
     name: 'Model',
     health: 70,
+    speed: 120,
     movement: {type: movementTypes.NORMAL, range: 5},
     activities: [activityTypes.SEDUCE]
   }

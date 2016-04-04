@@ -4,11 +4,9 @@ import {canMoveTo, canHit, areaPowerModifierOn} from '../logic'
 import actions from '../actions'
 import s from '../style'
 
-import Char from './char'
-
 import activities from '../data/activity-data'
 import turnStates from '../data/turn-states'
-import jobs from '../data/jobs'
+import jobData from '../data/job-data'
 
 const moveTo = (dispatch, coords) => () => {
   dispatch({
@@ -29,12 +27,12 @@ const confirmActivity = (dispatch) => () => {
 }
 
 function render ({props, dispatch, context}) {
-  const chars = _.chain(context.chars)
-    .filter(({coords}) => _.isEqual(coords, props.coords))
-    .map(char => <Char char={char} />)
-    .value()
+  // const chars = _.chain(context.chars)
+  //   .filter(({coords}) => _.isEqual(coords, props.coords))
+  //   .map(char => <Char char={char} />)
+  //   .value()
 
-  const style = s.gridItem(...props.coords)
+  const style = s.gridItem(...props.coords, props.elevation)
   const events = {}
   const actingChar = context.chars[context.turn.char]
 
@@ -45,7 +43,7 @@ function render ({props, dispatch, context}) {
   if (context.turn.state === turnStates.MOVE) {
     if (canMoveTo({
       state: context,
-      movement: jobs[actingChar.job].movement,
+      movement: jobData[actingChar.job].movement,
       charCoords: actingChar.coords,
       toCoords: props.coords,
       chars: context.chars
@@ -59,7 +57,7 @@ function render ({props, dispatch, context}) {
   if (context.turn.state === turnStates.SELECT_COORDS || context.turn.state === turnStates.CONFIRM_ACTIVITY) {
     if (canHit({
       state: context,
-      activityRange: activities[jobs[actingChar.job].activities[context.turn.activity]].range,
+      activityRange: activities[jobData[actingChar.job].activities[context.turn.activity]].range,
       charCoords: actingChar.coords,
       toCoords: props.coords
     })) {
@@ -72,7 +70,7 @@ function render ({props, dispatch, context}) {
   if (context.turn.state === turnStates.CONFIRM_ACTIVITY) {
     if (areaPowerModifierOn({
       state: context,
-      activityArea: activities[jobs[actingChar.job].activities[context.turn.activity]].area,
+      activityArea: activities[jobData[actingChar.job].activities[context.turn.activity]].area,
       charCoords: actingChar.coords,
       focusCoords: context.turn.coords,
       atCoords: props.coords
@@ -84,9 +82,7 @@ function render ({props, dispatch, context}) {
   }
 
   return (
-    <div class='grid-item' key={props.coords} style={style} {...events}>
-      {chars}
-    </div>
+    <div class='grid-item' key={props.coords} style={style} {...events} />
   )
 }
 

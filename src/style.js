@@ -1,30 +1,16 @@
 const gridSize = 50;
 
 export default {
-  grid: {
-    position: 'relative',
-    top: '150px',
-    left: '150px',
-    width: `${10 * gridSize * 1.16}px`,
-    height: `${10 * gridSize * 1.16}px`,
-    WebkitUserSelect: 'none',
-    // transform: 'rotate(60deg)',
-    cursor: 'default'
-  },
+  gridItem: (x, y, z) => ({
+    left: `${x * 3}em`,
+    top: `${y * 3}em`,
+    transform: `translateZ(${z}em)`
+  }),
 
-  gridItem: (x, y) => ({
-    display: 'inline-block',
-    width: '48px',
-    height: '48px',
-    position: 'absolute',
-    border: '1px solid gray',
-    left: `${x * gridSize}px`,
-    // top: `${(y * gridSize * 1.16) - (x * gridSize / 1.5 / 1.16)}px`,
-    top: `${(y * gridSize)}px`,
-    fontSize: '75%',
-    // transform: 'skew(0deg, -30deg) scale(1, 1.16)',
-    fontFamily: '-apple-system, "Helvetica Neue", Helvetica',
-    fontWeight: 600
+  char: (x, y, z) => ({
+    left: `${x * 3 + 1}em`,
+    top: `${y * 3 + 1}em`,
+    transform: `translateZ(${z + 1}em)`
   }),
 
   canMoveTo: {
