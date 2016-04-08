@@ -1,7 +1,6 @@
 import element from '../element'
 import GridItem from './grid-item'
 import Char from './char'
-import s from '../style'
 
 function render ({context}) {
   return (

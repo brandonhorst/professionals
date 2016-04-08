@@ -1,9 +1,9 @@
-.grid {
-  left: 50%;
+.grid, .menu {
   margin: -7.5em;
   padding: 3em;
   position: absolute;
   top: 25%;
+  left: 50%;
   -webkit-transform: perspective(2000) rotateX(60deg) rotateZ(45deg);
   -webkit-transform-style: preserve-3d;
   -webkit-transition: 1s;
@@ -15,13 +15,13 @@
 
 .grid-item {
   box-shadow: inset 0 0 0 .25em hsla(0,0%,0%,.1);
-  background-color: #f66;
+  background-color: #6f6;
   transform-style: preserve-3d;
 
-  animation: differentiate 1s ease-in-out;
+  animation: differentiate-grid 1s ease-in-out;
 }
 
-@keyframes differentiate {
+@keyframes differentiate-grid {
   from { transform: translateZ(0em); }
 }
 
@@ -36,13 +36,13 @@
 
 /* Left */
 .grid-item:after {
-  background-color: #e55;
+  background-color: #5e5;
   transform: rotateX(-90deg) scaleY(-200);
   transform-origin: 0 100%;
 }
 /* Right */
 .grid-item:before {
-  background-color: #d44;
+  background-color: #4d4;
   transform: rotateY(90deg) scaleX(-200);
   transform-origin: 100% 0;
 }
@@ -58,11 +58,36 @@
   background-color: #da4;
 }
 
+.char.team-0 {
+  background-color: #66f;
+}
+.char.team-0:after {
+    background-color: #55e;
+}
+.char.team-0:before {
+    background-color: #44d;
+}
+
+.char.team-1 {
+  background-color: #f66;
+}
+.char.team-1:after {
+    background-color: #e55;
+}
+.char.team-1:before {
+    background-color: #d44;
+}
+
+
 .char {
   box-shadow: inset 0 0 0 .25em hsla(0,0%,0%,.1);
   transform-style: preserve-3d;
   transition: .25s;
-  background-color: #66f;
+  animation: differentiate-char 1s ease-in-out;
+}
+
+@keyframes differentiate-char {
+  from { transform: translateZ(1em); }
 }
 
 .char,
@@ -76,13 +101,28 @@
 
 /* Left */
 .char:after {
-    background-color: #55e;
     transform: rotateX(90deg);
     transform-origin: 0 100%;
 }
 /* Right */
 .char:before {
-    background-color: #44d;
-    transform: rotateY(-90deg);
-    transform-origin: 100% 0;
+  transform: rotateY(-90deg);
+  transform-origin: 100% 0;
+}
+
+.menu {
+  text-align: center;
+  -webkit-transform-style: preserve-3d;
+}
+
+.menu-item {
+  position: absolute;
+  list-style-type: none; 
+  cursor: pointer;
+  text-align: center;
+  padding: 4px;
+  margin: 0;
+  background: red;
+  width: 3em;
+  height: 1em;
 }

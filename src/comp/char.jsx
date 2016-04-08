@@ -8,10 +8,7 @@ function render ({props, context}) {
   const coords = char.coords
   const elevation = context.tiles[coords[0]][coords[1]].elevation
   return (
-    <div class='char' style={s.char(...char.coords, elevation)}>
-      <div class='marker' style={s.team(char.team)}>
-      </div>
-    </div>
+    <div class={`char team-${char.team}`} style={s.char(...char.coords, elevation)}/>
   )
 }
 

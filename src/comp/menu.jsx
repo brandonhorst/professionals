@@ -6,6 +6,8 @@ import turnStates from '../data/turn-states'
 import activities from '../data/activity-data'
 import jobData from '../data/job-data'
 
+import {currentChar, charData} from '../helpers'
+
 import style from '../style'
 
 const selectMoveOption = (dispatch) => () => {
@@ -42,18 +44,31 @@ function showMove(context) {
 
 function render ({props, dispatch, context}) {
   let items = []
+
+  const coords = charData(context, currentChar(context)).coords
+  const elevation = context.tiles[coords[0]][coords[1]].elevation
+
   if (context.turn.state === turnStates.MENU) {
     items.push(
-      showMove(context) ? <li class='menu-item' style={style.menuItem} onClick={selectMoveOption(dispatch)}>Move</li> : null,
-      <li class='menu-item' style={style.menuItem} onClick={selectActOption(dispatch)}>Act</li>,
-      <li class='menu-item' style={style.menuItem} onClick={wait(dispatch)}>Wait</li>
+      showMove(context) ? <li
+        class='menu-item'
+        style={style.menuItem(...coords, elevation, 'top')}
+        onClick={selectMoveOption(dispatch)}>Move</li> : null,
+      <li class='menu-item'
+        style={style.menuItem(...coords, elevation, 'right')}
+        onClick={selectActOption(dispatch)}>Act</li>,
+      <li class='menu-item'
+        style={style.menuItem(...coords, elevation, 'left')}
+        onClick={wait(dispatch)}>Wait</li>
     )
   }
 
   if (context.turn.state === turnStates.SELECT_ACTIVITY) {
     const activityItems = _.map(jobData[context.chars[context.turn.char].job].activities, (activity, index) => {
       return (
-        <li class='menu-item' style={style.menuItem} onClick={selectActivity(dispatch, index)}>
+        <li class='menu-item'
+          style={style.menuItem(...coords, elevation, 'top')}
+          onClick={selectActivity(dispatch, index)}>
           {activities[activity].name}
         </li>
       )
@@ -62,16 +77,14 @@ function render ({props, dispatch, context}) {
     items.push(...activityItems)
   }
 
-  if (context.turn.state === turnStates.CONFIRM_ACTIVITY) {
-    items.push(<li class='menu-item' style={style.menuItem} onClick={confirmActivity(dispatch)}>Confirm</li>)
-  }
-
   if (context.turn.state !== turnStates.MENU) {
-    items.push(<li class='menu-item' style={style.menuItem} onClick={cancel(dispatch)}>Cancel</li>)
+    items.push(<li class='menu-item'
+      style={style.menuItem(...coords, elevation, 'left')}
+      onClick={cancel(dispatch)}>Cancel</li>)
   }
 
   return (
-    <ul class='menu' style={style.menu}>
+    <ul class='menu'>
       {items}
     </ul>
   )

@@ -12,6 +12,7 @@
   "author": "@brandonhorst",
   "license": "MIT",
   "dependencies": {
+    "a-star": "^0.2.0",
     "deku": "^2.0.0-rc16",
     "dot-prop-immutable": "^1.1.2",
     "inline-style": "^2.0.0",

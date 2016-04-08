@@ -36,19 +36,19 @@ export default {
     color: team === 0 ? 'blue' : 'red'
   }),
 
-  menu: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    height: '100%',
-    border: '1px solid red',
-    width: '200px'
-  },
-
-  menuItem: {
-    height: '100px',
-    border: '1px solid black',
-    cursor: 'pointer'
+  menuItem(x, y, z, pos) {
+    let left = x * 3
+    let top = y * 3 + 1
+    switch (pos) {
+      case 'left': left -= 4; break
+      case 'right': left += 4; break
+      case 'top': top -= 3; break
+    }
+    return {
+      left: `${left}em`,
+      top: `${top}em`,
+      transform: `translateZ(${z}em)`
+    }
   },
 
   status: {
@@ -56,9 +56,5 @@ export default {
     position: 'absolute',
     bottom: 0,
     width: '100%'
-  },
-
-  statusItem: {
-
   }
 }

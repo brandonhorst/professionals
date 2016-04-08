@@ -1,7 +1,7 @@
 import element from '../element'
 import Grid from './grid'
-import Menu from './menu'
 import actions from '../actions'
+import Menu from './menu'
 
 import turnStates from '../data/turn-states'
 
