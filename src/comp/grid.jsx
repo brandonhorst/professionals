@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import element from '../element'
 import GridItem from './grid-item'
 import Char from './char'

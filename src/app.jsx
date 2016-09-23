@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import {createApp} from 'deku'
 import element from './element'
 import {createStore} from 'redux'

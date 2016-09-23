@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import element from '../element'
 import jobData from '../data/job-data'
 import s from '../style'

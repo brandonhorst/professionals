@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {crowFliesDistance, linearDistance} from '../utils'
 import activityAreaTypes from './activity-area-types'
 

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import element from '../element'
 
 import {canMoveTo, canHit, areaPowerModifierOn} from '../logic'
